@@ -10,45 +10,45 @@ const buttonnext = document.querySelector('.btn-next');
 let searchPokemon = 1;
 
 const fetchPokemon = async (pokemon) => {
-    const APIResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
-
-    if (APIResponse.status === 200) {
-
-    const data = await APIResponse.json();
-    return data;
- }
-
+    try {
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+        return res.json();
+    } catch (err) {
+        return err
+    }
 }
 
 const renderPokemon = async (pokemon) => {
-
     pokemonName.innerHTML = 'Loading...';
     pokemonNumber.innerHTML = '';
+    try {
+        const data = await fetchPokemon(pokemon);
 
+        if (!data) return;
 
-    if ((pokemon) <= 649) {
+        pokemonSprite = data['sprites']['versions']['generation-v']['black-white']['animated']
+        ['front_default']
 
-    const data = await fetchPokemon(pokemon);
-
-        if (data) {
         pokemonImage.style.display = 'block';
         pokemonName.innerHTML = data.name;
         pokemonNumber.innerHTML = data.id;
-        pokemonImage.src = data['sprites']['versions']['generation-v']['black-white']['animated']
-        ['front_default']
+        pokemonImage.src = pokemonSprite
         searchPokemon = data.id;
+        console.log(pokemonImage.src)
+        console.log(data)
 
-    }} else {
-
+        if (!pokemonSprite) {
+            pokemonStaticSprite = data['sprites']['front_default']
+            pokemonImage.src = pokemonStaticSprite
+        }
+    } catch (err) {
         pokemonName.innerHTML = 'Not Found :c';
         pokemonNumber.innerHTML = '';
         pokemonImage.style.display = 'none';
     }
-
 }
 
 form.addEventListener('submit', (event) => {
-
     event.preventDefault();
     renderPokemon(input.value.toLowerCase());
     input.value = '';
@@ -57,17 +57,17 @@ form.addEventListener('submit', (event) => {
 
 buttonprev.addEventListener('click', () => {
     if (searchPokemon > 1) {
-    searchPokemon -= 1;
-    renderPokemon(searchPokemon);
+        searchPokemon -= 1;
+        renderPokemon(searchPokemon);
     }
 });
 
 buttonnext.addEventListener('click', () => {
-    if (searchPokemon < 649) {
-    searchPokemon += 1;
-    renderPokemon(searchPokemon);
+    if (searchPokemon < 1024) {
+        searchPokemon += 1;
+        renderPokemon(searchPokemon);
     }
 });
 
-renderPokemon (searchPokemon);
+renderPokemon(searchPokemon);
 

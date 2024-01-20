@@ -8,7 +8,9 @@
 }
 
 body {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: linear-gradient(to bottom, #6ab7f5, #fff);
     min-height: 100vh;
     overflow-x: hidden;
@@ -22,7 +24,7 @@ main {
 }
 
 .ashbackground {
-    display: inline-block;
+    display: fixed;
     margin-top: 2%;
     padding: 15px;
     position: relative;
