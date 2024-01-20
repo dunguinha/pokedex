@@ -1,4 +1,4 @@
-## Pokedex utilizando API Pública - README
+## Pokedex utilizando API Pública
 
 Bem-vindo ao meu primeiro projeto em HTML e JavaScript! Uma simples Pokedex que utiliza uma API pública para obter informações sobre Pokémon, por enquanto apenas mostrando o pokemon e seu nome. Aqui estão as informações necessárias para entender e executar o projeto.
 
